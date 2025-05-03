@@ -93,22 +93,17 @@ Performed a comprehensive set of transformations to prepare predictive features:
 
 #### 📅 Date-Based Features
 - Extracted: `Year`, `Month`, `Day`, `DayOfWeek`, and `IsWeekend`.
-
 #### 🔁 Lag Features
 - Created lagged versions of `Close/Last` and `Volume` (lags: 1, 2, 3 days).
-
 #### 🔄 Rolling Statistics
 - Computed rolling means, medians, stds, max, min for 7, 14, and 30-day windows.
-
 #### 📈 Volatility Measures
 - Daily percentage change, return, and rolling return metrics.
-
 #### 📊 Technical Indicators
 - Simple & Exponential Moving Averages (SMA, EMA)
 - RSI (Relative Strength Index)
 - MACD (Moving Average Convergence Divergence)
 - Bollinger Bands
-
 #### 🎯 Target Variable
 - `Target_Close_Next_Day`: Next day’s close price
 - `Target_UpDown`: Binary classification target (1 = price goes up, 0 = down)
