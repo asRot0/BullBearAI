@@ -121,6 +121,31 @@ Performed a comprehensive set of transformations to prepare predictive features:
 
 ---
 
+### 📓 03_ml_baselines.ipynb — Machine Learning Baseline Models (Regression)
+
+This notebook builds baseline **regression models** to predict:
+
+- 📈 **`Target_Close_Next_Day`** — the actual next-day closing price of the stock.
+
+✅ **Implemented Models**:
+- Linear Regression  
+- Support Vector Regression (SVR)  
+- Random Forest Regressor  
+- Gradient Boosting Regressor  
+
+✅ **Highlights**:
+- Models trained on engineered features including lag features, rolling window stats, and technical indicators (e.g., RSI, MACD, Bollinger Bands).
+- Evaluation metrics include:
+  - MAE (Mean Absolute Error)
+  - RMSE (Root Mean Squared Error)
+  - R² Score
+- 📊 **Visualizations**:
+  - Actual vs Predicted Prices (line plot)
+  - Residual Plot (errors)
+  - MAE & RMSE comparison bar charts
+
+---
+
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
 ![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-orange?logo=jupyter)
 ![License](https://img.shields.io/github/license/your-username/BullBearAI)
