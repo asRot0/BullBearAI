@@ -3,6 +3,8 @@
 
 This project is designed to predict stock market trends using traditional ML, deep learning, and a hybrid LSTM-CNN architecture. Below is the step-by-step progress with brief descriptions.
 
+### 📂 Project Structure
+
 ```
 BullBearAI/
 │
@@ -11,12 +13,15 @@ BullBearAI/
 │   ├── interim/                 # Intermediate transformation outputs
 │   └── processed/               # Cleaned and final datasets
 │
-├── notebooks/                  # Jupyter notebooks for EDA, prototyping
-│   ├── 01_eda.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   ├── 03_baseline_models.ipynb
-│   ├── 04_hybrid_model.ipynb
-│   └── 05_evaluation.ipynb
+├── notebooks/                  # Jupyter notebooks for EDA, modeling, evaluation
+│   ├── 01_eda.ipynb                        # Exploratory Data Analysis
+│   ├── 02_feature_engineering.ipynb        # Feature engineering techniques
+│   ├── 03_ml_baselines.ipynb               # Traditional ML models: SVM, RF, LR, Gradient Boosting
+│   ├── 04_time_series_models.ipynb         # Time series statistical models: ARIMA, SARIMA, GARCH, etc.
+│   ├── 05_cnn_model.ipynb                  # CNN-based deep learning model
+│   ├── 06_lstm_model.ipynb                 # LSTM (RNN) based sequence model
+│   ├── 07_hybrid_cnn_lstm_model.ipynb      # Hybrid CNN-LSTM deep model
+│   └── 08_model_comparison.ipynb           # Evaluation & performance comparison
 │
 ├── src/                        # All source code
 │   ├── config/                 # Configuration files and parameters
@@ -25,7 +30,7 @@ BullBearAI/
 │   │   └── load_data.py
 │   ├── features/               # Feature engineering functions
 │   │   └── technical_indicators.py
-│   ├── models/                 # ML & DL models
+│   ├── models/                 # ML & DL model definitions
 │   │   ├── arima_model.py
 │   │   ├── svm_model.py
 │   │   ├── cnn_model.py
@@ -56,7 +61,6 @@ BullBearAI/
 ├── README.md                   # Project overview, setup, and usage
 ├── LICENSE                     # License info
 └── .gitignore                  # Files to ignore in version control
-
 ```
 
 
