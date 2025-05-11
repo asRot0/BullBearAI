@@ -121,7 +121,7 @@ Performed a comprehensive set of transformations to prepare predictive features:
 
 ---
 
-### 📓 03_ml_baselines.ipynb — Machine Learning Baseline Models (Regression)
+### 📓 Machine Learning Baseline Models (Regression)
 
 This notebook builds baseline **regression models** to predict:
 
