@@ -17,7 +17,7 @@ BullBearAI/
 │   ├── 01_eda.ipynb                        # Exploratory Data Analysis
 │   ├── 02_feature_engineering.ipynb        # Feature engineering techniques
 │   ├── 03_ml_baselines.ipynb               # Traditional ML models: SVM, RF, LR, Gradient Boosting
-│   ├── 04_time_series_models.ipynb         # Time series statistical models: ARIMA, SARIMA, GARCH, etc.
+│   ├── 04_time_series_models.ipynb         # Time series statistical models: ARIMA, SARIMA, GARCH
 │   ├── 05_cnn_model.ipynb                  # CNN-based deep learning model
 │   ├── 06_lstm_model.ipynb                 # LSTM (RNN) based sequence model
 │   ├── 07_hybrid_cnn_lstm_model.ipynb      # Hybrid CNN-LSTM deep model
@@ -145,6 +145,31 @@ This notebook builds baseline **regression models** to predict:
   - MAE & RMSE comparison bar charts
 
 ---
+
+### Time Series Modeling (ARIMA, SARIMA, GARCH)
+
+This section compares three powerful time series models:
+
+- **ARIMA**: Captures trend using autoregressive and moving average components.
+- **SARIMA**: Extends ARIMA by modeling seasonality.
+- **GARCH**: Models time-varying volatility (useful for financial series).
+
+#### Model Performance Metrics
+
+| Model  | MAE   | RMSE  |
+|--------|-------|-------|
+| ARIMA  | *your_mae_arima* | *your_rmse_arima* |
+| SARIMA | *your_mae_sarima* | *your_rmse_sarima* |
+
+- **MAE (Mean Absolute Error)**: Measures average absolute errors.
+- **RMSE (Root Mean Squared Error)**: Penalizes large errors more.
+
+#### Key Takeaways
+
+- **ARIMA** works well for capturing trend but may struggle with seasonality.
+- **SARIMA** provides improved results when seasonality is present.
+- **GARCH** is useful to understand and forecast volatility (especially useful in financial data like stock prices).
+
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
 ![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-orange?logo=jupyter)
