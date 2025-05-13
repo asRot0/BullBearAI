@@ -1,5 +1,9 @@
 
 ## Project Progress Overview: BullBearAI
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
+![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-orange?logo=jupyter)
+![License](https://img.shields.io/github/license/your-username/BullBearAI)
+![Status](https://img.shields.io/badge/Progress-Phase%201%20✅-green)
 
 This project is designed to predict stock market trends using traditional ML, deep learning, and a hybrid LSTM-CNN architecture. Below is the step-by-step progress with brief descriptions.
 
@@ -139,6 +143,16 @@ This notebook builds baseline **regression models** to predict:
   - MAE (Mean Absolute Error)
   - RMSE (Root Mean Squared Error)
   - R² Score
+
+- Model Performance Metrics
+
+    | Model  | MAE   | RMSE  | R² Score |
+    |--------|-------|-------|----------|
+    | LR  | *19.25* | *22.43* | *-0.30* |
+    | SVR  | *27.82* | *34.50* | *-2.08* |
+    | RF  | *9.04* | *11.88* | *0.63* |
+    | GB  | *8.72* | *11.40* | *0.66* |
+
 - **Visualizations**:
   - Actual vs Predicted Prices (line plot)
   - Residual Plot (errors)
@@ -158,8 +172,8 @@ This section compares three powerful time series models:
 
 | Model  | MAE   | RMSE  |
 |--------|-------|-------|
-| ARIMA  | *your_mae_arima* | *your_rmse_arima* |
-| SARIMA | *your_mae_sarima* | *your_rmse_sarima* |
+| ARIMA  | *6.134887* | *15.929801* |
+| SARIMA | *19.205966* | *21.711764* |
 
 - **MAE (Mean Absolute Error)**: Measures average absolute errors.
 - **RMSE (Root Mean Squared Error)**: Penalizes large errors more.
@@ -170,8 +184,3 @@ This section compares three powerful time series models:
 - **SARIMA** provides improved results when seasonality is present.
 - **GARCH** is useful to understand and forecast volatility (especially useful in financial data like stock prices).
 
-
-![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
-![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-orange?logo=jupyter)
-![License](https://img.shields.io/github/license/your-username/BullBearAI)
-![Status](https://img.shields.io/badge/Progress-Phase%201%20✅-green)
