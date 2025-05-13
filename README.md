@@ -1,9 +1,9 @@
 
-## 🚀 Project Progress Overview: BullBearAI
+## Project Progress Overview: BullBearAI
 
 This project is designed to predict stock market trends using traditional ML, deep learning, and a hybrid LSTM-CNN architecture. Below is the step-by-step progress with brief descriptions.
 
-### 📂 Project Structure
+### Project Structure
 
 ```
 BullBearAI/
@@ -64,14 +64,14 @@ BullBearAI/
 ```
 
 
-### 📥 1. Data Loading & Initial Inspection
+### Data Loading & Initial Inspection
 - Loaded the raw stock market data (Netflix stock) from the `data/raw/` directory.
 - Verified file integrity, parsed dates correctly, and ensured data types were appropriate.
 - Saved a clean version in `data/processed/netflix_cleaned.csv`.
 
 ---
 
-### 🧹 2. Data Cleaning
+### Data Cleaning
 - Removed duplicates and handled any missing/null values.
 - Renamed columns for consistency and usability (`Close/Last` instead of `Close*`).
 - Converted all date fields to `datetime` format.
@@ -80,7 +80,7 @@ BullBearAI/
 
 ---
 
-### 📊 3. Exploratory Data Analysis (EDA)
+### Exploratory Data Analysis (EDA)
 - Visualized time-series trends of `Close`, `Volume`, and `Open`.
 - Used Seaborn and Matplotlib for:
   - Moving averages
@@ -92,28 +92,28 @@ BullBearAI/
 
 ---
 
-### 🧠 4. Feature Engineering
+### Feature Engineering
 Performed a comprehensive set of transformations to prepare predictive features:
 
-#### 📅 Date-Based Features
+#### Date-Based Features
 - Extracted: `Year`, `Month`, `Day`, `DayOfWeek`, and `IsWeekend`.
 
-#### 🔁 Lag Features
+#### Lag Features
 - Created lagged versions of `Close/Last` and `Volume` (lags: 1, 2, 3 days).
 
-#### 🔄 Rolling Statistics
+#### Rolling Statistics
 - Computed rolling means, medians, stds, max, min for 7, 14, and 30-day windows.
 
-#### 📈 Volatility Measures
+#### Volatility Measures
 - Daily percentage change, return, and rolling return metrics.
 
-#### 📊 Technical Indicators
+#### Technical Indicators
 - Simple & Exponential Moving Averages (SMA, EMA)
 - RSI (Relative Strength Index)
 - MACD (Moving Average Convergence Divergence)
 - Bollinger Bands
 
-#### 🎯 Target Variable
+#### Target Variable
 - `Target_Close_Next_Day`: Next day’s close price
 - `Target_UpDown`: Binary classification target (1 = price goes up, 0 = down)
 
@@ -121,25 +121,25 @@ Performed a comprehensive set of transformations to prepare predictive features:
 
 ---
 
-### 📓 Machine Learning Baseline Models (Regression)
+### Machine Learning Baseline Models (Regression)
 
 This notebook builds baseline **regression models** to predict:
 
-- 📈 **`Target_Close_Next_Day`** — the actual next-day closing price of the stock.
+- **`Target_Close_Next_Day`** — the actual next-day closing price of the stock.
 
-✅ **Implemented Models**:
+**Implemented Models**:
 - Linear Regression  
 - Support Vector Regression (SVR)  
 - Random Forest Regressor  
 - Gradient Boosting Regressor  
 
-✅ **Highlights**:
+**Highlights**:
 - Models trained on engineered features including lag features, rolling window stats, and technical indicators (e.g., RSI, MACD, Bollinger Bands).
 - Evaluation metrics include:
   - MAE (Mean Absolute Error)
   - RMSE (Root Mean Squared Error)
   - R² Score
-- 📊 **Visualizations**:
+- **Visualizations**:
   - Actual vs Predicted Prices (line plot)
   - Residual Plot (errors)
   - MAE & RMSE comparison bar charts
