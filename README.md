@@ -121,7 +121,7 @@ Performed a comprehensive set of transformations to prepare predictive features:
 - `Target_Close_Next_Day`: Next day’s close price
 - `Target_UpDown`: Binary classification target (1 = price goes up, 0 = down)
 
-📁 Engineered dataset saved to: `data/interim/engineered_features.csv`.
+Engineered dataset saved to: `data/interim/engineered_features.csv`.
 
 ---
 
@@ -184,3 +184,25 @@ This section compares three powerful time series models:
 - **SARIMA** provides improved results when seasonality is present.
 - **GARCH** is useful to understand and forecast volatility (especially useful in financial data like stock prices).
 
+---
+
+### CNN-Based Model
+
+Use deep learning (CNN) to model patterns in stock price sequences and predict future values with better local feature extraction than traditional models.
+
+| Step | Description |
+|------|-------------|
+| Scaling | Applies `MinMaxScaler` to normalize prices between 0 and 1. |
+| Sequence Generation | Converts time series into sequences using sliding windows. |
+| CNN Architecture | 1D Convolution + MaxPooling + Dense layers. |
+| Training | Compiled with `adam` optimizer and `mse` loss. |
+| Evaluation | MAE, RMSE, and future price predictions plotted. |
+
+#### Performance Summary
+
+| Metric | Value |
+|--------|-------|
+| MAE    | *9.66* |
+| RMSE   | *11.93* |
+
+---
