@@ -73,16 +73,12 @@ BullBearAI/
 - Verified file integrity, parsed dates correctly, and ensured data types were appropriate.
 - Saved a clean version in `data/processed/netflix_cleaned.csv`.
 
----
-
 ### Data Cleaning
 - Removed duplicates and handled any missing/null values.
 - Renamed columns for consistency and usability (`Close/Last` instead of `Close*`).
 - Converted all date fields to `datetime` format.
 - Ensured data is sorted chronologically.
 - Exported cleaned dataset to `data/processed/`.
-
----
 
 ### Exploratory Data Analysis (EDA)
 - Visualized time-series trends of `Close`, `Volume`, and `Open`.
@@ -93,8 +89,6 @@ BullBearAI/
 - Checked for trends, volatility, and patterns.
 - Identified data gaps, outliers, or anomalies.
 - All EDA work is saved in `notebooks/01_eda.ipynb`.
-
----
 
 ### Feature Engineering
 Performed a comprehensive set of transformations to prepare predictive features:
@@ -206,6 +200,7 @@ Use deep learning (CNN) to model patterns in stock price sequences and predict f
 | RMSE   | *11.93* |
 
 ---
+
 ### LSTM-Based Model
 
 Leverage LSTM (a variant of RNN) for time series forecasting of stock prices using historical closing data. LSTMs are well-suited for sequential data due to their ability to preserve long-term memory and overcome the vanishing gradient problem in vanilla RNNs.
@@ -217,8 +212,6 @@ Leverage LSTM (a variant of RNN) for time series forecasting of stock prices usi
   - Capable of learning both short-term and long-term temporal patterns.
 - **Sliding Window**: We use 60-day historical windows to predict the next day's price.
 - **EarlyStopping**: To avoid overfitting (patience = 10)
-
----
 
 #### Evaluation Metrics (on Inverse Scaled Real Prices)
 
