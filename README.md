@@ -206,3 +206,25 @@ Use deep learning (CNN) to model patterns in stock price sequences and predict f
 | RMSE   | *11.93* |
 
 ---
+### LSTM-Based Model
+
+Leverage LSTM (a variant of RNN) for time series forecasting of stock prices using historical closing data. LSTMs are well-suited for sequential data due to their ability to preserve long-term memory and overcome the vanishing gradient problem in vanilla RNNs.
+- `Close/Last`: Normalized closing price.
+- `Target_Close_Next_Day`: Target value to predict (next day’s closing price).
+
+- **LSTM Architecture**:
+  - Contains memory cells with gates (input, forget, and output).
+  - Capable of learning both short-term and long-term temporal patterns.
+- **Sliding Window**: We use 60-day historical windows to predict the next day's price.
+- **EarlyStopping**: To avoid overfitting (patience = 10)
+
+---
+
+#### Evaluation Metrics (on Inverse Scaled Real Prices)
+
+| Metric | Value |
+|--------|-------|
+| MAE    | *8.3355* |
+| RMSE   | *10.2783* |
+
+---
