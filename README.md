@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
 ![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-orange?logo=jupyter)
 ![License](https://img.shields.io/github/license/your-username/BullBearAI)
-![Status](https://img.shields.io/badge/Progress-Phase%201%20✅-green)
+![Status](https://img.shields.io/badge/Progress-Phase%202%20✅-green)
 
 This project is designed to predict stock market trends using traditional ML, deep learning, and a hybrid LSTM-CNN architecture. Below is the step-by-step progress with brief descriptions.
 
