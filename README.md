@@ -221,3 +221,20 @@ Leverage LSTM (a variant of RNN) for time series forecasting of stock prices usi
 | RMSE   | *10.2783* |
 
 ---
+
+### Hybrid CNN-LSTM Model
+
+Combines 1D Convolutional Neural Networks (CNNs) and Long Short-Term Memory (LSTM) layers to model both local temporal patterns (via CNN) and long-term dependencies (via LSTM) in stock price data.
+
+This hybrid approach captures short-term market fluctuations (via convolution) and sequential trends (via recurrence) more effectively than using either architecture alone.
+- `Sliding Window`: 60-day lookback window for sequence construction.
+- `Regularization`: Dropout and EarlyStopping (patience = 10) to mitigate overfitting.
+
+#### Evaluation Metrics (on Inverse Scaled Real Prices)
+
+| Metric | Value |
+|--------|-------|
+| MAE    | *5.53* |
+| RMSE   | *6.94* |
+
+---
