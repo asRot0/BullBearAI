@@ -1,0 +1,38 @@
+{
+  "Linear Regression": {
+    "MAE": 19.25,
+    "RMSE": 22.43
+  },
+  "SVM": {
+    "MAE": 27.82,
+    "RMSE": 34.50
+  },
+  "Random Forest": {
+    "MAE": 9.04,
+    "RMSE": 11.88
+  },
+  "XGBoost": {
+    "MAE": 8.72,
+    "RMSE": 11.40
+  },
+  "ARIMA": {
+    "MAE": 6.13,
+    "RMSE": 15.92
+  },
+  "SARIMA": {
+    "MAE": 19.20,
+    "RMSE": 21.71
+  },
+  "CNN": {
+    "MAE": 9.66,
+    "RMSE": 11.93
+  },
+  "LSTM": {
+    "MAE": 8.33,
+    "RMSE": 10.27
+  },
+  "Hybrid CNN-LSTM": {
+    "MAE": 5.53,
+    "RMSE": 6.94
+  }
+}
