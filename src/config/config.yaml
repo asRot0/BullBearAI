@@ -1,0 +1,30 @@
+data:
+  input_path: data/processed/feature_engineered_stock_data.csv
+  target_column: Target_Close_Next_Day
+  sequence_length: 60
+
+training:
+  test_size: 0.2
+  validation_split: 0.2
+  batch_size: 32
+  epochs: 50
+  shuffle: false
+  random_seed: 42
+
+model:
+  cnn:
+    filters: 64
+    kernel_size: 3
+    dense_units: 64
+    dropout: 0.2
+
+  lstm:
+    units: 50
+    dropout: 0.2
+    recurrent_dropout: 0.2
+
+  hybrid:
+    cnn_filters: 64
+    lstm_units: 50
+    dense_units: 64
+    dropout: 0.3
