@@ -1,5 +1,5 @@
 data:
-  input_path: data/processed/feature_engineered_stock_data.csv
+  input_path: data/interim/engineered_features.csv
   target_column: Target_Close_Next_Day
   sequence_length: 60
 
