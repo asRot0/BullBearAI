@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 
 
 def load_and_clean_stock_data(file_path: str, save_cleaned_path: str = None) -> pd.DataFrame:
@@ -43,3 +45,39 @@ def load_and_clean_stock_data(file_path: str, save_cleaned_path: str = None) -> 
         stock_data.to_csv(save_cleaned_path, index=False)
 
     return stock_data
+
+
+def load_stock_data(input_path, sequence_length=60, feature_col='Close/Last', target_col='Target_Close_Next_Day'):
+    """
+    Load stock data and generate sequences for time series forecasting.
+
+    Parameters:
+    - input_path (str): Path to the processed CSV file.
+    - sequence_length (int): Number of past days to use for each input sample.
+    - feature_col (str or list): Single column or list of feature columns to use as input.
+    - target_col (str): Column to be predicted.
+
+    Returns:
+    - X (np.array): Input sequences of shape (samples, sequence_length, n_features)
+    - y (np.array): Target values of shape (samples,)
+    - scaler (MinMaxScaler): Fitted scaler for inverse transforming
+    """
+    df = pd.read_csv(input_path)
+
+    # Ensure feature_col is a list
+    if isinstance(feature_col, str):
+        feature_col = [feature_col]
+
+    # Select and scale features
+    feature_data = df[feature_col].values
+    scaler = MinMaxScaler()
+    feature_data_scaled = scaler.fit_transform(feature_data)
+
+    target_data = df[target_col].values
+
+    X, y = [], []
+    for i in range(sequence_length, len(feature_data_scaled)):
+        X.append(feature_data_scaled[i-sequence_length:i])
+        y.append(target_data[i])
+
+    return np.array(X), np.array(y), scaler
