@@ -21,5 +21,31 @@ class CNNModel:
         self.input_shape = input_shape
         self.model = self._build_model(filters, kernel_size, dense_units, dropout_rate)
 
-    def _build_model(self):
-        pass
+    def _build_model(self, filters, kernet_size, dense_units, dropout_rate):
+        model = Sequential()
+        model.add(Conv1D(filters=filters, kernet_size=kernet_size, activation='relu', input_shape=self.input_shape))
+        model.add(MaxPooling1D(pool_size=2))
+        model.add(Flatten())
+        model.add(Dense(dense_units, activation='relu'))
+        model.add(Dropout(dropout_rate))
+        model.add(Dense(1))
+        model.compile(optimizer='adam', loss='mse')
+        return model
+
+    def train(self, X_train, y_train, X_val, y_val, batch_size=32, epochs=100, patience=10):
+        """
+        Train the CNN model with early stopping.
+
+        Returns:
+        - training history object
+        """
+        early_stop = EarlyStopping(monitor='val_loss', patience=patience, restore_best_weights=True)
+        history = self.model.fit(
+            X_train, y_train,
+            validation_data=(X_val, y_val),
+            batch_size=batch_size,
+            epochs=epochs,
+            callbacks=[early_stop],
+            verbose=1
+        )
+        return history
