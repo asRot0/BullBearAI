@@ -19,5 +19,56 @@ class LSTMModel:
         self.input_shape = input_shape
         self.model = self._build_model(lstm_units, dense_units, dropout_rate)
 
-    def _build_model(self):
-        pass
+    def _build_model(self, lstm_units, dense_units, dropout_rate):
+        model = Sequential()
+        model.add(LSTM(units=lstm_units, return_sequences=False, input_shape=self.input_shape))
+        model.add(Dropout(dropout_rate))
+        model.add(Dense(units=dense_units, activation='relu'))
+        model.add(Dropout(dropout_rate))
+        model.add(Dense(1))  # Single value output
+        model.compile(optimizer='adam', loss='mse')
+        return model
+
+    def train(self, X_train, y_train, X_val, y_val, batch_size=32, epochs=100, patience=10):
+        """
+        Train the LSTM model with early stopping.
+
+        Returns:
+        - training history object
+        """
+        early_stop = EarlyStopping(monitor='val_loss', patience=patience, restore_best_weights=True)
+        history = self.model.fit(
+            X_train, y_train,
+            validation_data=(X_val, y_val),
+            batch_size=batch_size,
+            epochs=epochs,
+            callbacks=[early_stop],
+            verbose=1
+        )
+        return history
+
+    def predict(self, X):
+        """
+        Predict using the trained LSTM model.
+        """
+        return self.model.predict(X)
+
+    def evaluate(self, y_true, y_pred):
+        """
+        Compute MAE and RMSE for model performance.
+        """
+        mae = mean_absolute_error(y_true, y_pred)
+        rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+        return {"MAE": mae, "RMSE": rmse}
+
+    def save_model(self, path):
+        """
+        Save the trained Keras model to disk.
+        """
+        self.model.save(path)
+
+    def load_model(self, path):
+        """
+        Load a trained Keras model from disk.
+        """
+        self.model = load_model(path)
