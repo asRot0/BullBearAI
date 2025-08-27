@@ -1,5 +1,3 @@
-# src/training/train_model.py
-
 import os
 import numpy as np
 import pandas as pd
@@ -58,6 +56,7 @@ class ModelTrainer:
                 X.append(features_scaled[i-sequence_length:i])
                 y.append(target[i])
             X, y = np.array(X), np.array(y)
+
             # Split train/val/test
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
             val_size_adj = int(len(X_train) * self.val_size)
