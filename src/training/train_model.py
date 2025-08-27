@@ -16,7 +16,7 @@ from src.models.lstm_model import LSTMModel
 from src.models.hybrid_model import HybridCNNLSTMModel
 
 class ModelTrainer:
-    def __init__(self, model_name, feature_cols, target_col, test_size=0.2, val_size=0.1, random_state=42):
+    def __init__(self, model_name, feature_cols, target_col, test_size=0.2, val_size=0.1, shuffle=False, random_state=None):
         """
         Central training pipeline for ML/DL models.
 
@@ -32,6 +32,7 @@ class ModelTrainer:
         self.target_col = target_col
         self.test_size = test_size
         self.val_size = val_size
+        self.shuffle = shuffle
         self.random_state = random_state
 
         self.scaler = MinMaxScaler()
@@ -58,7 +59,7 @@ class ModelTrainer:
             X, y = np.array(X), np.array(y)
 
             # Split train/val/test
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, shuffle=self.shuffle)
             val_size_adj = int(len(X_train) * self.val_size)
             X_val, y_val = X_train[-val_size_adj:], y_train[-val_size_adj:]
             X_train, y_train = X_train[:-val_size_adj], y_train[:-val_size_adj]
@@ -66,7 +67,7 @@ class ModelTrainer:
 
         else:
             # For ML models
-            X_train, X_test, y_train, y_test = train_test_split(features_scaled, target, test_size=self.test_size, random_state=self.random_state)
+            X_train, X_test, y_train, y_test = train_test_split(features_scaled, target, test_size=self.test_size, shuffle=self.shuffle)
             return X_train, X_test, y_train, y_test
 
     def initialize_model(self, input_shape=None):
