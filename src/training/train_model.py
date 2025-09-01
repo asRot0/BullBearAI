@@ -1,19 +1,22 @@
 import os
+import sys
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models')))
+
 # Import ML models
-from src.models.linear_model import LinearRegressionModel
-from src.models.svm_model import SVMModel
-from src.models.random_forest_model import RandomForestModel
-from src.models.gradient_boosting_model import GradientBoostingModel
+from linear_model import LinearRegressionModel
+from svm_model import SVMModel
+from random_forest_model import RandomForestModel
+from gradient_boosting_model import GradientBoostingModel
 
 # Import DL models
-from src.models.cnn_model import CNNModel
-from src.models.lstm_model import LSTMModel
-from src.models.hybrid_model import HybridCNNLSTMModel
+from cnn_model import CNNModel
+from lstm_model import LSTMModel
+from hybrid_model import HybridCNNLSTMModel
 
 class ModelTrainer:
     def __init__(self, model_name, feature_cols, target_col, test_size=0.2, val_size=0.1, shuffle=False, random_state=None):
@@ -37,6 +40,7 @@ class ModelTrainer:
 
         self.scaler = MinMaxScaler()
         self.model = None
+        self.features_scaled_shape = None
 
     def prepare_data(self, df, sequence_length=60):
         """
@@ -50,12 +54,17 @@ class ModelTrainer:
 
         # Scale features
         features_scaled = self.scaler.fit_transform(features.reshape(-1, len(self.feature_cols)))
+        self.features_scaled_shape = features_scaled.shape[1]
 
         if self.model_name in ["cnn", "lstm", "hybrid"]:
             X, y = [], []
-            for i in range(sequence_length, len(features_scaled)):
-                X.append(features_scaled[i-sequence_length:i])
-                y.append(target[i])
+            # for i in range(sequence_length, len(features_scaled)):
+            #     X.append(features_scaled[i-sequence_length:i])
+            #     y.append(target[i])
+
+            for i in range(len(features_scaled) - sequence_length):
+                X.append(features_scaled[i:i + sequence_length])
+                y.append(features_scaled[i + sequence_length, -2])
             X, y = np.array(X), np.array(y)
 
             # Split train/val/test
@@ -106,5 +115,5 @@ class ModelTrainer:
             self.model.train(X_train, y_train)
             y_pred = self.model.predict(X_test)
 
-        results = self.model.evaluate(y_test, y_pred)
+        results = self.model.evaluate(y_test, y_pred, self.scaler, self.features_scaled_shape)
         return results
