@@ -49,6 +49,9 @@ def line_plots(df):
         axes[i].tick_params(axis='x', rotation=45)
         axes[i].grid(True, linestyle='--', alpha=0.8)
 
+        axes[i].xaxis.set_major_locator(mdates.AutoDateLocator(minticks=5, maxticks=8))
+        # axes[i].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
     # Adjust layout
     plt.tight_layout()
     return plt
@@ -136,6 +139,7 @@ def rolling_avg_plot(df):
                     interpolate=True, color='lightcoral', alpha=0.3, label='Bearish Gap')
 
     # Customizations
+    ax.xaxis.set_major_locator(mdates.AutoDateLocator(minticks=5, maxticks=8))
     ax.set_title('Close Price with 7-Day & 30-Day Moving Averages',
                  fontsize=14, fontweight='bold', color='#333333')
     ax.set_xlabel('Date', fontsize=12)
@@ -214,6 +218,7 @@ def sma_ema_plot(df):
                      color='orange', alpha=0.4, label='SMA < EMA', interpolate=True)
 
     # Formatting
+    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator(minticks=5, maxticks=8))
     plt.title('SMA & EMA on Close Price (14-Day)', fontsize=16, fontweight='bold')
     plt.xlabel('Date', fontsize=12)
     plt.ylabel('Price', fontsize=12)
@@ -258,6 +263,7 @@ def rsi_plot(df):
     plt.axhline(30, color=oversold_color, linestyle='--', label='Oversold (30)')
 
     # Customize plot
+    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator(minticks=5, maxticks=8))
     plt.title('RSI Indicator', fontsize=16, fontweight='bold')
     plt.xlabel('Date', fontsize=12)
     plt.ylabel('RSI Value', fontsize=12)
@@ -334,6 +340,7 @@ def seasonal_decomposition(df):
         ax.label_outer()
         ax.tick_params(axis='x', rotation=45)
 
+    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator(minticks=5, maxticks=8))
     plt.suptitle('Seasonal Decomposition of Close Price', fontsize=15, weight='bold')
     plt.tight_layout()
     # plt.tight_layout(rect=[0, 0, 1, 0.97])
