@@ -4,7 +4,7 @@ import seaborn as sns
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-# from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.seasonal import seasonal_decompose
 from scipy.stats import zscore
 from datetime import datetime
 
@@ -186,3 +186,72 @@ def volume_distribution(df):
 
     plt.tight_layout()
     return fig
+
+def seasonal_decomposition(df):
+    # Perform decomposition
+    decomposition = seasonal_decompose(df['Close/Last'], model='additive', period=30)
+
+    # Extract components
+    observed = decomposition.observed
+    trend = decomposition.trend
+    seasonal = decomposition.seasonal
+    residual = decomposition.resid
+
+    # Define colors
+    colors = {
+        'observed': '#1f77b4',  # Blue
+        'trend': '#2ca02c',  # Green
+        'seasonal': '#ff7f0e',  # Orange
+        'residual': '#d62728'  # Red
+    }
+
+    # Create subplots
+    fig, axes = plt.subplots(4, 1, figsize=(14, 8), sharex=True)
+    fig.patch.set_facecolor('#f2f2f2')
+
+    # Plot each component with colors and labels
+    axes[0].plot(df['Date'], observed, color=colors['observed'], label='Observed', linewidth=2)
+    axes[0].set_title('Observed', fontsize=12, weight='bold')
+    axes[0].grid(True, linestyle='--', alpha=0.7)
+
+    axes[1].plot(df['Date'], trend, color=colors['trend'], label='Trend', linewidth=2)
+    axes[1].set_title('Trend', fontsize=12, weight='bold')
+    axes[1].grid(True, linestyle='--', alpha=0.7)
+
+    axes[2].plot(df['Date'], seasonal, color=colors['seasonal'], label='Seasonal', linewidth=2)
+    axes[2].set_title('Seasonal', fontsize=12, weight='bold')
+    axes[2].grid(True, linestyle='--', alpha=0.7)
+
+    axes[3].scatter(df['Date'], residual, color=colors['residual'], label='Residual', s=10)
+    axes[3].set_title('Residual', fontsize=12, weight='bold')
+    axes[3].grid(True, linestyle='--', alpha=0.7)
+
+    # Highlight residuals greater than 2 standard deviations from the mean
+    threshold = 2 * residual.std()
+    anomalies = residual[abs(residual) > threshold]
+    axes[3].scatter(df['Date'][anomalies.index], anomalies, color='yellow', label='Anomalies', s=30, zorder=5)
+
+    # Apply color gradient to seasonal component (gradient based on date)
+    norm = plt.Normalize(seasonal.min(), seasonal.max())  # Normalize the seasonal component
+    cmap = cm.coolwarm  # Choose a color map (can be 'plasma', 'coolwarm', etc.)
+
+    # Plot gradient line + shaded area under seasonal component
+    for i in range(1, len(seasonal)):
+        x = [df['Date'][i - 1], df['Date'][i]]
+        y = [seasonal[i - 1], seasonal[i]]
+        color = cmap(norm(seasonal[i]))
+
+        # Line segment
+        axes[2].plot(x, y, color=color, lw=2)
+        # Shaded area (fill between line and y=0)
+        axes[2].fill_between(x, y, [0, 0], color=color, alpha=0.3)
+
+    # Customize x-axis
+    for ax in axes:
+        ax.label_outer()
+        ax.tick_params(axis='x', rotation=45)
+
+    plt.suptitle('Seasonal Decomposition of Close Price', fontsize=15, weight='bold')
+    plt.tight_layout()
+    # plt.tight_layout(rect=[0, 0, 1, 0.97])
+    return plt
