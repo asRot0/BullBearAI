@@ -224,6 +224,52 @@ def sma_ema_plot(df):
     plt.tight_layout()
     return plt
 
+def rsi_plot(df):
+    # RSI (Relative Strength Index)
+    def compute_rsi(series, period=14):
+        delta = series.diff()
+        gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+        rs = gain / loss
+        return 100 - (100 / (1 + rs))
+
+    df['RSI_14'] = compute_rsi(df['Close/Last'])
+
+    # Define colors
+    rsi_color = 'orange'
+    overbought_color = 'red'
+    oversold_color = 'green'
+    highlight_color = 'skyblue'
+
+    # Plot setup
+    plt.figure(figsize=(14, 6))
+
+    # Plot RSI line
+    plt.plot(df['Date'], df['RSI_14'], color=rsi_color, label='RSI 14', linewidth=2)
+
+    # Highlight areas above 70 (overbought) and below 30 (oversold)
+    plt.fill_between(df['Date'], df['RSI_14'], 70, where=(df['RSI_14'] > 70), color=overbought_color, alpha=0.3,
+                     label='Overbought (>70)')
+    plt.fill_between(df['Date'], df['RSI_14'], 30, where=(df['RSI_14'] < 30), color=oversold_color, alpha=0.3,
+                     label='Oversold (<30)')
+
+    # Add horizontal lines at 70 and 30
+    plt.axhline(70, color=overbought_color, linestyle='--', label='Overbought (70)')
+    plt.axhline(30, color=oversold_color, linestyle='--', label='Oversold (30)')
+
+    # Customize plot
+    plt.title('RSI Indicator', fontsize=16, fontweight='bold')
+    plt.xlabel('Date', fontsize=12)
+    plt.ylabel('RSI Value', fontsize=12)
+    plt.xticks(rotation=45)
+    plt.grid(True, linestyle='--', alpha=0.8)
+
+    # Display the legend and finalize plot
+    plt.legend(loc='lower left')
+    sns.despine()
+    plt.tight_layout()
+    return plt
+
 def seasonal_decomposition(df):
     # Perform decomposition
     decomposition = seasonal_decompose(df['Close/Last'], model='additive', period=30)
