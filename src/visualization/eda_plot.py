@@ -187,6 +187,43 @@ def volume_distribution(df):
     plt.tight_layout()
     return fig
 
+def sma_ema_plot(df):
+    # SMA (Simple Moving Average)
+    df['SMA_14'] = df['Close/Last'].rolling(window=14).mean()
+
+    # EMA (Exponential Moving Average)
+    df['EMA_14'] = df['Close/Last'].ewm(span=14, adjust=False).mean()
+
+    # Define new gentle color scheme
+    close_color = sns.color_palette("pastel")[2]  # Light orange
+    sma_color = sns.color_palette("pastel")[0]  # Soft blue
+    ema_color = sns.color_palette("pastel")[4]  # Light violet
+
+    # Plot setup
+    plt.figure(figsize=(14, 6))
+
+    # Plot each line
+    plt.plot(df['Date'], df['Close/Last'], label='Close Price', color=close_color, linewidth=2)
+    plt.plot(df['Date'], df['SMA_14'], label='SMA 14', color=sma_color, linestyle='--', linewidth=2)
+    plt.plot(df['Date'], df['EMA_14'], label='EMA 14', color=ema_color, linestyle='-', linewidth=2)
+
+    # Fill the area between SMA and EMA
+    plt.fill_between(df['Date'], df['SMA_14'], df['EMA_14'], where=(df['SMA_14'] > df['EMA_14']),
+                     color='skyblue', alpha=0.4, label='SMA > EMA', interpolate=True)
+    plt.fill_between(df['Date'], df['SMA_14'], df['EMA_14'], where=(df['SMA_14'] < df['EMA_14']),
+                     color='orange', alpha=0.4, label='SMA < EMA', interpolate=True)
+
+    # Formatting
+    plt.title('SMA & EMA on Close Price (14-Day)', fontsize=16, fontweight='bold')
+    plt.xlabel('Date', fontsize=12)
+    plt.ylabel('Price', fontsize=12)
+    plt.xticks(rotation=45)
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.legend()
+    sns.despine()
+    plt.tight_layout()
+    return plt
+
 def seasonal_decomposition(df):
     # Perform decomposition
     decomposition = seasonal_decompose(df['Close/Last'], model='additive', period=30)
