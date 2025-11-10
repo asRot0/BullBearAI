@@ -105,8 +105,50 @@ def outlier_detection(df):
     plt.tight_layout()
     return plt
 
-def volume_distribution(df):
+def rolling_avg_plot(df):
+    # Rolling averages (7-day & 30-day)
+    df['Close_7d'] = df['Close/Last'].rolling(window=7).mean()
+    df['Close_30d'] = df['Close/Last'].rolling(window=30).mean()
 
+    # Define more vibrant custom colors
+    close_color = "#FF6F61"  # Coral
+    ma7_color = "#6A5ACD"  # Slate Blue
+    ma30_color = "#20B2AA"  # Light Sea Green
+    gap_color = "#FFD700"  # Gold
+
+    # Create the plot with custom background color
+    fig, ax = plt.subplots(figsize=(12, 6))
+    # fig.patch.set_facecolor('#f0f0f5')  # Light gray background
+    # ax.set_facecolor('#fafafa')         # Slightly off-white axes area
+
+    # Plot lines
+    ax.plot(df['Date'], df['Close/Last'], label='Close', color=close_color, linewidth=2)
+    ax.plot(df['Date'], df['Close_7d'], label='7-Day MA', color=ma7_color, linestyle='--', linewidth=2)
+    ax.plot(df['Date'], df['Close_30d'], label='30-Day MA', color=ma30_color, linestyle=':', linewidth=2)
+
+    # Fill between MAs with attractive color
+    ax.fill_between(df['Date'], df['Close_7d'], df['Close_30d'],
+                    where=(df['Close_7d'] > df['Close_30d']),
+                    interpolate=True, color='lightgreen', alpha=0.3, label='Bullish Gap')
+
+    ax.fill_between(df['Date'], df['Close_7d'], df['Close_30d'],
+                    where=(df['Close_7d'] <= df['Close_30d']),
+                    interpolate=True, color='lightcoral', alpha=0.3, label='Bearish Gap')
+
+    # Customizations
+    ax.set_title('Close Price with 7-Day & 30-Day Moving Averages',
+                 fontsize=14, fontweight='bold', color='#333333')
+    ax.set_xlabel('Date', fontsize=12)
+    ax.set_ylabel('Price', fontsize=12)
+    ax.tick_params(axis='x', rotation=45)
+    ax.legend()
+    ax.grid(True, linestyle='--', alpha=0.6)
+    sns.despine()
+
+    plt.tight_layout()
+    return plt
+
+def volume_distribution(df):
     # Volume Distribution
     num_bins = 50
 
