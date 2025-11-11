@@ -2,11 +2,11 @@ import os
 import sys
 import numpy as np
 import pandas as pd
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models')))
-
 # Import ML models
 from linear_model import LinearRegressionModel
 from svm_model import SVMModel
@@ -63,8 +63,8 @@ class ModelTrainer:
             #     y.append(target[i])
 
             for i in range(len(features_scaled) - sequence_length):
-                X.append(features_scaled[i:i + sequence_length])
-                y.append(features_scaled[i + sequence_length, -2])
+                X.append(features_scaled[i:i + sequence_length, :-1])
+                y.append(features_scaled[i + sequence_length, -1])
             X, y = np.array(X), np.array(y)
 
             # Split train/val/test
@@ -116,4 +116,7 @@ class ModelTrainer:
             y_pred = self.model.predict(X_test)
 
         results = self.model.evaluate(y_test, y_pred, self.scaler, self.features_scaled_shape)
+        # self.model.save_model('../../saved_models/cnn_model.h5')
+        # joblib.dump(self.scaler, '../../saved_models/cnn_scaler.pkl')
+        print('model saved')
         return results
