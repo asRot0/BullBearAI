@@ -190,7 +190,7 @@ def plot_model_comparison_heatmap_app(json_path: str, figsize=(12, 6), cmap="RdB
         cbar_kws={'label': 'Performance Score'},
         ax=ax
     )
-    ax.set_title("Model Performance Comparison (All Metrics)", fontsize=16, weight="bold")
+    # ax.set_title("Model Performance Comparison (All Metrics)", fontsize=16, weight="bold")
     ax.set_ylabel("Metric")
     ax.set_xlabel("Model")
     plt.xticks(rotation=30, ha="right")
