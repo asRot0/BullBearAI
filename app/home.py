@@ -90,7 +90,7 @@ st.markdown(
     """
     <div style="text-align:center; font-size:14px; color:#555;">
     Built with ❤️ by Asif Ahmed | 
-    <a href="https://github.com/asRot0/BullBearAI/app/home.py" target="_blank">GitHub Repo</a> |
+    <a href="https://github.com/asRot0/BullBearAI/blob/main/app/home.py" target="_blank">GitHub Repo</a> |
     Version 1.0
     </div>
     """,
