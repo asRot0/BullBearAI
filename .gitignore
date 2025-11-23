@@ -3,6 +3,7 @@ __pycache__/
 .ipynb_checkpoints
 .env
 .venv
+.streamlit
 *.pt
 *.bin
 *.safetensors
